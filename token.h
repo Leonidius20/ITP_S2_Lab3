@@ -11,9 +11,9 @@ public:
     bool isOperator() override { return false; };
 };
 
-class Operator : public Token {
+class Operator1 : public Token {
 public:
     bool isOperator() override { return true; };
     int getPrecedence() const;
-    void apply();
+    void apply(double a, double b);
 };

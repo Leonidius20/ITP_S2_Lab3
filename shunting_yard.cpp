@@ -8,7 +8,3 @@ using namespace std;
 vector<Token> parse(const string& str) {
     return vector<Token>();
 };
-
-double compute(const vector<Token>& tokens) {
-    return 0;
-}
