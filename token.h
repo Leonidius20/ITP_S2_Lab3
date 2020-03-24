@@ -21,13 +21,12 @@ public:
 
 class Operator : public Token {
 private:
-    int precedence;
-    char signature;
-    static std::map<char, Operator> operatorMap;
+    const int precedence;
+    const char signature;
+    static std::map<char, Operator> *operatorMap;
 
     Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {}
 public:
-    Operator() = default; // doesn't compile without this
 
     static Operator get(char signature);
 
@@ -36,4 +35,6 @@ public:
     [[nodiscard]] int getPrecedence() const { return precedence; }
 
     double apply(double a, double b);
+
+    static void destroyMap() { delete operatorMap; }
 };

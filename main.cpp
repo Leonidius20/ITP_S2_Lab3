@@ -21,4 +21,6 @@ int main(int argc, char *argv[]) {
     auto tokens = parse(expression);
     double result = compute(tokens);
     cout << result << endl;
+
+    Operator::destroyMap();
 }

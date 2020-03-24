@@ -20,7 +20,7 @@ double Operator::apply(double a, double b) {
     }
 }
 
-map<char, Operator> Operator::operatorMap = {
+map<char, Operator> *Operator::operatorMap = new map<char, Operator> {
         {'+', Operator(1, '+')},
         {'-', Operator(1, '-')},
         {'*', Operator(2, '*')},
@@ -29,8 +29,8 @@ map<char, Operator> Operator::operatorMap = {
 };
 
 Operator Operator::get(char signature) {
-    if (!operatorMap.contains(signature)) {
+    if (!operatorMap->contains(signature)) {
         throw invalid_argument("Unknown operator: " + to_string(signature));
     }
-    return operatorMap[signature];
+    return operatorMap->at(signature);
 }
