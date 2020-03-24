@@ -21,5 +21,16 @@ int main(int argc, char *argv[]) {
     double result = compute(tokens);
     cout << result << endl;
 
+    for (Token *token : tokens) {
+        if (token->isOperator()) {
+            auto o = dynamic_cast<Operator *>(token);
+            cout << o->getSignature();
+        } else {
+            auto number = dynamic_cast<Number *>(token);
+            cout << number->getValue();
+        }
+        cout << " ";
+    }
+
     Operator::destroyMap();
 }

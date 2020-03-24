@@ -40,6 +40,9 @@ public:
     double apply(double a, double b);
 
     static void destroyMap() { delete operatorMap; }
+
+    // TEMP
+    [[nodiscard]] char getSignature() const { return signature; };
 };
 
 class OpeningBracket : public Token {
