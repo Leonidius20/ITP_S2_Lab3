@@ -5,6 +5,10 @@
 
 using namespace std;
 
+const char NOT_FOUND = -1;
+
+bool shouldParseAsOperator(const string &str, int position);
+
 vector<Token *> parse(const string &str) {
     vector<Token *> output;
     Stack<Token *> stack;
@@ -13,7 +17,7 @@ vector<Token *> parse(const string &str) {
         char c = str[i];
         if (isspace(c)) continue;
 
-        if (Operator::isOperator(c)) {
+        if (shouldParseAsOperator(str, i)) {
             auto o1 = Operator::get(c);
             while (!stack.empty()) {
                 auto token = stack.peek();
@@ -51,4 +55,21 @@ vector<Token *> parse(const string &str) {
     }
 
     return output;
+}
+
+bool shouldParseAsOperator(const string &str, int position) {
+    char c = str[position];
+    if (c != '-') {
+        return Operator::isOperator(c);
+    }
+
+    char previous = NOT_FOUND;
+    for (int i = position - 1; i >= 0; i--) {
+        if (!isspace(str[i])) {
+            previous = str[i];
+            break;
+        }
+    }
+
+    return previous != NOT_FOUND && previous != '(' && !Operator::isOperator(previous);
 }
