@@ -28,7 +28,7 @@ private:
     Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {}
 public:
 
-    static Operator get(char signature);
+    static Operator *get(char signature);
 
     bool isOperator() override { return true; };
 

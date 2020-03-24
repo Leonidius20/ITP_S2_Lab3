@@ -28,9 +28,9 @@ map<char, Operator> *Operator::operatorMap = new map<char, Operator> {
         {'^', Operator(3, '^')},
 };
 
-Operator Operator::get(char signature) {
+Operator *Operator::get(char signature) {
     if (!operatorMap->contains(signature)) {
         throw invalid_argument("Unknown operator: " + to_string(signature));
     }
-    return operatorMap->at(signature);
+    return &operatorMap->at(signature);
 }
