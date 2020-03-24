@@ -41,3 +41,16 @@ public:
 
     static void destroyMap() { delete operatorMap; }
 };
+
+class OpeningBracket : public Token {
+private:
+    static OpeningBracket *instance;
+
+    OpeningBracket() = default;
+
+public:
+
+    bool isOperator() override { return false; };
+
+    static OpeningBracket *getInstance() { return instance; };
+};

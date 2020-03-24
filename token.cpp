@@ -34,3 +34,5 @@ Operator *Operator::get(char signature) {
     }
     return &operatorMap->at(signature);
 }
+
+OpeningBracket *OpeningBracket::instance = new OpeningBracket();

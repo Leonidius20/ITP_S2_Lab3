@@ -7,7 +7,7 @@ using namespace std;
 
 vector<Token *> parse(const string &str) {
     vector<Token *> output;
-    Stack<Operator *> stack;
+    Stack<Token *> stack;
 
     for (int i = 0; i < str.length(); i++) {
         char c = str[i];
@@ -16,12 +16,24 @@ vector<Token *> parse(const string &str) {
         if (Operator::isOperator(c)) {
             auto o1 = Operator::get(c);
             while (!stack.empty()) {
-                auto o2 = stack.peek();
+                auto token = stack.peek();
+                if (!token->isOperator()) break;
+
+                auto o2 = dynamic_cast<Operator *>(stack.peek());
                 if (o1->getPrecedence() > o2->getPrecedence()) break;
 
                 output.push_back(stack.pop());
             }
             stack.push(o1);
+        } else if (c == '(') {
+            stack.push(OpeningBracket::getInstance());
+        } else if (c == ')') {
+            while (!stack.empty()) {
+                auto token = stack.pop();
+                if (token->isOperator()) {
+                    output.push_back(token);
+                } else break;
+            }
         } else {
             int start = i++;
             for (; i < str.length() && (isdigit(str[i]) || str[i] == '.'); ++i) {}
