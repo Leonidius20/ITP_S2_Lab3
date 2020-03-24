@@ -33,6 +33,6 @@ Operator Operator::get(char signature) {
         case '^':
             return Operator(3, '^');
         default:
-            throw std::invalid_argument("Unknown operator: " + std::to_string(signature));
+            throw invalid_argument("Unknown operator: " + to_string(signature));
     }
 }
