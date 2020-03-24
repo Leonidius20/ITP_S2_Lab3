@@ -26,9 +26,12 @@ private:
     static std::map<char, Operator> *operatorMap;
 
     Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {}
+
 public:
 
     static Operator *get(char signature);
+
+    static bool isOperator(char signature) { return operatorMap->contains(signature); }
 
     bool isOperator() override { return true; };
 
