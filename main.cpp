@@ -18,7 +18,9 @@ int main(int argc, char *argv[]) {
         expression.append(argv[i]);
     }
 
-    vector<Token> tokens = parse(expression);
+    auto tokens = parse(expression);
     double result = compute(tokens);
     cout << result << endl;
+
+    Operator::destroyMap();
 }
