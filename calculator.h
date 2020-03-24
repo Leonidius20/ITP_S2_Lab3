@@ -3,4 +3,4 @@
 #include <vector>
 #include "token.h"
 
-double compute(const std::vector<Token>& tokens);
+double compute(const std::vector<Token*>& tokens);

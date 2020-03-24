@@ -4,6 +4,6 @@
 
 using namespace std;
 
-double compute(const vector<Token>& tokens) {
+double compute(const vector<Token*>& tokens) {
     return 0;
 }

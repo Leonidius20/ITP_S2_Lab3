@@ -5,6 +5,6 @@
 
 using namespace std;
 
-vector<Token> parse(const string& str) {
-    return vector<Token>();
+vector<Token*> parse(const string& str) {
+    return vector<Token*>();
 };
