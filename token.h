@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <stdexcept>
 #include <map>
 
 class Token {
@@ -22,12 +21,14 @@ public:
 
 class Operator : public Token {
 private:
-    const int precedence;
-    const char signature;
+    int precedence;
+    char signature;
     static std::map<char, Operator> operatorMap;
 
     Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {}
 public:
+    Operator() = default; // doesn't compile without this
+
     static Operator get(char signature);
 
     bool isOperator() override { return true; };
