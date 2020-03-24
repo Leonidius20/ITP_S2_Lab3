@@ -18,12 +18,12 @@ public:
     bool isOperator() override { return false; };
 };
 
-class Operator1 : public Token {
+class Operator : public Token {
 private:
     const int precedence;
     const std::string signature;
 public:
-    Operator1(const int precedence, const std::string &signature) : precedence(precedence), signature(signature) {} // NOLINT(modernize-pass-by-value)
+    Operator(const int precedence, const std::string &signature) : precedence(precedence), signature(signature) {} // NOLINT(modernize-pass-by-value)
 
     bool isOperator() override { return true; };
 

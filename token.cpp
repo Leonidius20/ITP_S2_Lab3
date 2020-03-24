@@ -4,7 +4,7 @@
 
 using namespace std;
 
-double Operator1::apply(double a, double b) {
+double Operator::apply(double a, double b) {
     if (signature == "+") {
         return a + b;
     } else if (signature == "-") {
