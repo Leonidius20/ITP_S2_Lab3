@@ -1,19 +1,33 @@
 #pragma once
 
+#include <string>
+
 class Token {
 public:
     virtual bool isOperator() = 0;
 };
 
 class Number : public Token {
+private:
+    const double value;
 public:
-    double getValue() const;
+    explicit Number(double value) : value(value) {}
+
+    [[nodiscard]] double getValue() const { return value; };
+
     bool isOperator() override { return false; };
 };
 
 class Operator1 : public Token {
+private:
+    const int precedence;
+    const std::string signature;
 public:
+    Operator1(const int precedence, const std::string &signature) : precedence(precedence), signature(signature) {} // NOLINT(modernize-pass-by-value)
+
     bool isOperator() override { return true; };
-    int getPrecedence() const;
-    void apply(double a, double b);
+
+    [[nodiscard]] int getPrecedence() const { return precedence; }
+
+    double apply(double a, double b);
 };
