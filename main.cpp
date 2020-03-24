@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "shunting_yard.h"
 #include "token.h"
 #include "calculator.h"
@@ -14,7 +13,7 @@ int main(int argc, char *argv[]) {
     }
 
     string expression;
-    for (int i = 0; i < argc; i++) {
+    for (int i = 1; i < argc; i++) {
         expression.append(argv[i]);
     }
 
