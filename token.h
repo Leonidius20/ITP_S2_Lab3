@@ -19,7 +19,7 @@ public:
 
     bool isOperator() override { return false; };
 
-    ~Number() override = default;;
+    ~Number() override = default;
 };
 
 class Operator : public Token {
