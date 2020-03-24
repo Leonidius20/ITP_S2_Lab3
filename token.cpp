@@ -20,19 +20,17 @@ double Operator::apply(double a, double b) {
     }
 }
 
+map<char, Operator> Operator::operatorMap = {
+        {'+', Operator(1, '+')},
+        {'-', Operator(1, '-')},
+        {'*', Operator(2, '*')},
+        {'/', Operator(2, '/')},
+        {'^', Operator(3, '^')},
+};
+
 Operator Operator::get(char signature) {
-    switch(signature) {
-        case '+':
-            return Operator(1, '+');
-        case '-':
-            return Operator(1, '-');
-        case '*':
-            return Operator(2, '*');
-        case '/':
-            return Operator(2, '/');
-        case '^':
-            return Operator(3, '^');
-        default:
-            throw invalid_argument("Unknown operator: " + to_string(signature));
+    if (!operatorMap.contains(signature)) {
+        throw invalid_argument("Unknown operator: " + to_string(signature));
     }
+    return operatorMap[signature];
 }

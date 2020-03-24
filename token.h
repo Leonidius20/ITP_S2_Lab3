@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <map>
 
 class Token {
 public:
@@ -23,8 +24,9 @@ class Operator : public Token {
 private:
     const int precedence;
     const char signature;
+    static std::map<char, Operator> operatorMap;
 
-    Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {} // NOLINT(modernize-pass-by-value)
+    Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {}
 public:
     static Operator get(char signature);
 
