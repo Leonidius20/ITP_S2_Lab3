@@ -62,7 +62,7 @@ public:
         return value;
     };
 
-    [[nodiscard]] const T& peek_back() const {
+    [[nodiscard]] const T &peek_back() const {
         if (back == nullptr) {
             throw std::out_of_range("There are no elements in the list");
         }
@@ -93,22 +93,22 @@ public:
 
 };
 
-template <typename T>
+template<typename T>
 class Stack : private LinkedList<T> {
 public:
     void push(T element) {
-        push_back(element);
+        this->push_back(element);
     };
 
     T pop() {
-        return pop_back();
+        return this->pop_back();
     };
 
     T peek() {
-        return peek_back();
+        return this->peek_back();
     };
 
     int size() {
-        return LinkedList::size();
+        return LinkedList<T>::size();
     };
 };
