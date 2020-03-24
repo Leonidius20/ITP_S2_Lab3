@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <stdexcept>
 
 class Token {
 public:
@@ -21,9 +22,11 @@ public:
 class Operator : public Token {
 private:
     const int precedence;
-    const std::string signature;
+    const char signature;
+
+    Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {} // NOLINT(modernize-pass-by-value)
 public:
-    Operator(const int precedence, const std::string &signature) : precedence(precedence), signature(signature) {} // NOLINT(modernize-pass-by-value)
+    static Operator get(char signature);
 
     bool isOperator() override { return true; };
 
