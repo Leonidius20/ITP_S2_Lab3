@@ -1,14 +1,12 @@
 #pragma once
 
-#include <type_traits>
-#include <iterator>
 #include <stdexcept>
 
 template<typename T>
 class LinkedList {
     struct Node {
         explicit Node(T aElement) : element(aElement) {};
-        T element;
+        const T element;
         Node *nextNode = nullptr;
         Node *prevNode = nullptr;
     };
@@ -19,7 +17,7 @@ public:
     LinkedList() = default;
 
     LinkedList(const LinkedList &obj) {
-        if (obj.front == nullptr) return;
+        if (obj.empty()) return;
 
         Node *node = obj.front;
         push_back(node->element);
@@ -33,7 +31,7 @@ public:
     void push_back(T element) {
         Node *newNode = new Node(element);
 
-        if (front == nullptr) {
+        if (empty()) {
             front = newNode;
             back = newNode;
             return;
@@ -46,11 +44,11 @@ public:
     };
 
     T pop_back() {
-        if (back == nullptr) {
+        if (empty()) {
             throw std::out_of_range("There are no elements in the list");
         }
 
-        if (size() == 1) {
+        if (back->prevNode == nullptr) {
             front = nullptr;
         }
 
@@ -63,25 +61,19 @@ public:
     };
 
     [[nodiscard]] const T &peek_back() const {
-        if (back == nullptr) {
+        if (empty()) {
             throw std::out_of_range("There are no elements in the list");
         }
 
         return back->element;
     };
 
-    [[nodiscard]] int size() const {
-        int counter = 0;
-        Node *lastNode = front;
-        while (lastNode != nullptr) {
-            lastNode = lastNode->nextNode;
-            counter++;
-        }
-        return counter;
-    };
+    [[nodiscard]] bool empty() const {
+        return front == nullptr;
+    }
 
     ~LinkedList() {
-        if (front == nullptr) return;
+        if (empty()) return;
         Node *node = front;
         Node *next;
         while (node != nullptr) {
@@ -108,7 +100,7 @@ public:
         return this->peek_back();
     };
 
-    int size() {
-        return LinkedList<T>::size();
-    };
+    bool empty() {
+        return LinkedList<T>::empty();
+    }
 };
