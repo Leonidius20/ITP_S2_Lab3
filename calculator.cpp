@@ -2,20 +2,26 @@
 #include "token.h"
 #include "stack.h"
 #include "calculator.h"
+#include <exception>
 
 using namespace std;
 
-double compute(const vector<Token*>& tokens) {
-    Stack<Number*> numbers;
+double compute(const vector<Token *> &tokens) {
+    Stack<Number *> numbers;
     for (auto token : tokens) {
         if (!token->isOperator()) {
-            auto number = dynamic_cast<Number*>(token);
-            numbers.push(number);
+            auto numberToken = dynamic_cast<Number *>(token);
+            numbers.push(numberToken);
         } else {
-            auto oper = dynamic_cast<Operator*>(token);
-            numbers.push(new Number(oper->apply(numbers.pop()->getValue(), numbers.pop()->getValue())));
+            auto operatorToken = dynamic_cast<Operator *>(token);
+            double operand1 = numbers.pop()->getValue(),
+                    operand2 = numbers.pop()->getValue();
+            double value = operatorToken->apply(operand1, operand2);
+            numbers.push(new Number(value));
         }
-        delete token;
+    }
+    if (numbers.size() == 0) { // TODO: replace with isEmpty()
+        throw exception("compute(): ill-formed input");
     }
     return numbers.pop()->getValue();
 }

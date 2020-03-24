@@ -6,6 +6,7 @@
 class Token {
 public:
     virtual bool isOperator() = 0;
+    virtual ~Token() = default;
 };
 
 class Number : public Token {
@@ -17,6 +18,8 @@ public:
     [[nodiscard]] double getValue() const { return value; };
 
     bool isOperator() override { return false; };
+
+    ~Number() override = default;;
 };
 
 class Operator : public Token {
@@ -37,4 +40,6 @@ public:
     double apply(double a, double b);
 
     static void destroyMap() { delete operatorMap; }
+
+    ~Operator() override = default;
 };
