@@ -42,7 +42,7 @@ vector<Token *> parse(const string &str) {
             int start = i++;
             for (; i < str.length() && (isdigit(str[i]) || str[i] == '.'); ++i) {}
 
-            double number = stoi(str.substr(start, i - start));
+            double number = stod(str.substr(start, i - start));
             auto token = new Number(number);
             output.push_back(token);
 
