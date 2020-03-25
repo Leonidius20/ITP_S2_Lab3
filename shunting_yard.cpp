@@ -59,7 +59,7 @@ vector<Token *> parse(const string &expression) {
 
 bool shouldParseAsOperator(const string &expression, int position) {
     char c = expression[position];
-    if (c != '-') {
+    if (c != '-' && c != '+') {
         return Operator::isOperator(c);
     }
 
