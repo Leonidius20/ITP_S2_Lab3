@@ -71,5 +71,5 @@ bool shouldParseAsOperator(const string &str, int position) {
         }
     }
 
-    return previous != NOT_FOUND && previous != '(' && !Operator::isOperator(previous);
+    return previous != NOT_FOUND && previous != '(';
 }
