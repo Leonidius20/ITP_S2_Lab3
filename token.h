@@ -29,9 +29,12 @@ private:
     static std::map<char, Operator> *operatorMap;
 
     Operator(const int precedence, char signature) : precedence(precedence), signature(signature) {}
+
 public:
 
     static Operator *get(char signature);
+
+    static bool isOperator(char signature) { return operatorMap->contains(signature); }
 
     bool isOperator() override { return true; };
 
@@ -42,4 +45,17 @@ public:
     static void destroyMap() { delete operatorMap; }
 
     ~Operator() override = default;
+};
+
+class OpeningBracket : public Token {
+private:
+    static OpeningBracket *instance;
+
+    OpeningBracket() = default;
+
+public:
+
+    bool isOperator() override { return false; };
+
+    static OpeningBracket *getInstance() { return instance; };
 };

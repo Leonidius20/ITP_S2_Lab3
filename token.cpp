@@ -29,8 +29,10 @@ map<char, Operator> *Operator::operatorMap = new map<char, Operator> {
 };
 
 Operator *Operator::get(char signature) {
-    if (!operatorMap->contains(signature)) {
+    if (!isOperator(signature)) {
         throw invalid_argument("Unknown operator: " + to_string(signature));
     }
     return &operatorMap->at(signature);
 }
+
+OpeningBracket *OpeningBracket::instance = new OpeningBracket();

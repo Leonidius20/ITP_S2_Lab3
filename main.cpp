@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "shunting_yard.h"
 #include "token.h"
 #include "calculator.h"
