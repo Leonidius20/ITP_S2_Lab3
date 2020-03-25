@@ -7,7 +7,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    if (argc == 0) {
+    if (argc < 2) {
         cerr << "Arithmetic expression is not specified" << endl;
         return 0;
     }
@@ -17,9 +17,18 @@ int main(int argc, char *argv[]) {
         expression.append(argv[i]);
     }
 
-    auto tokens = parse(expression);
-    double result = compute(tokens);
-    cout << result << endl;
+    try {
+        auto tokens = parse(expression);
+        double result = compute(tokens);
+        cout << result << endl;
+
+        for (auto token : tokens) { // we could use smart pointers instead
+            delete token;           // because what if we don't reach this code at all
+                                    // due to an exception?
+        }
+    } catch (const exception& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
 
     Operator::destroyMap();
 }
