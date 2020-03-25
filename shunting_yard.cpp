@@ -7,28 +7,28 @@ using namespace std;
 
 const char NOT_FOUND = -1;
 
-bool shouldParseAsOperator(const string &str, int position);
+bool shouldParseAsOperator(const string &expression, int position);
 
-vector<Token *> parse(const string &str) {
+vector<Token *> parse(const string &expression) {
     vector<Token *> output;
     Stack<Token *> stack;
 
-    for (int i = 0; i < str.length(); i++) {
-        char c = str[i];
+    for (int i = 0; i < expression.length(); i++) {
+        char c = expression[i];
         if (isspace(c)) continue;
 
-        if (shouldParseAsOperator(str, i)) {
-            auto o1 = Operator::get(c);
+        if (shouldParseAsOperator(expression, i)) {
+            auto oper = Operator::get(c);
             while (!stack.empty()) {
                 auto token = stack.peek();
                 if (!token->isOperator()) break;
 
-                auto o2 = dynamic_cast<Operator *>(stack.peek());
-                if (o1->getPrecedence() > o2->getPrecedence()) break;
+                auto operFromStack = dynamic_cast<Operator *>(stack.peek());
+                if (oper->getPrecedence() > operFromStack->getPrecedence()) break;
 
                 output.push_back(stack.pop());
             }
-            stack.push(o1);
+            stack.push(oper);
         } else if (c == '(') {
             stack.push(OpeningBracket::getInstance());
         } else if (c == ')') {
@@ -40,9 +40,9 @@ vector<Token *> parse(const string &str) {
             }
         } else {
             int start = i++;
-            for (; i < str.length() && (isdigit(str[i]) || str[i] == '.'); ++i) {}
+            for (; i < expression.length() && (isdigit(expression[i]) || expression[i] == '.'); ++i) {}
 
-            double number = stod(str.substr(start, i - start));
+            double number = stod(expression.substr(start, i - start));
             auto token = new Number(number);
             output.push_back(token);
 
@@ -57,16 +57,16 @@ vector<Token *> parse(const string &str) {
     return output;
 }
 
-bool shouldParseAsOperator(const string &str, int position) {
-    char c = str[position];
+bool shouldParseAsOperator(const string &expression, int position) {
+    char c = expression[position];
     if (c != '-') {
         return Operator::isOperator(c);
     }
 
     char previous = NOT_FOUND;
     for (int i = position - 1; i >= 0; i--) {
-        if (!isspace(str[i])) {
-            previous = str[i];
+        if (!isspace(expression[i])) {
+            previous = expression[i];
             break;
         }
     }
