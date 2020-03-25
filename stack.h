@@ -38,7 +38,7 @@ public:
         }
 
         Node *oldBack = back;
-        back->nextNode = newNode;
+        oldBack->nextNode = newNode;
         newNode->prevNode = oldBack;
         back = newNode;
     };

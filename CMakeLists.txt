@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(ITP_S2_Lab3 main.cpp stack.h token.cpp token.h shunting_yard.cpp shunting_yard.h calculator.cpp calculator.h)
 
-add_library(Calculator STATIC calculator.cpp calculator.h token.h token.cpp)
+add_library(Calculator STATIC calculator.cpp calculator.h token.h token.cpp stack.h shunting_yard.cpp shunting_yard.h)
 
 add_subdirectory(test)
