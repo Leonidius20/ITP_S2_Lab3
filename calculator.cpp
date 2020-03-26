@@ -2,7 +2,7 @@
 #include "token.h"
 #include "stack.h"
 #include "calculator.h"
-#include <exception>
+#include <stdexcept>
 
 using namespace std;
 
@@ -21,7 +21,7 @@ double compute(const vector<Token *> &tokens) {
         }
     }
     if (numbers.empty()) {
-        throw exception("compute(): ill-formed input");
+        throw invalid_argument("compute(): ill-formed input");
     }
     return numbers.pop();
 }
