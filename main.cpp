@@ -20,6 +20,9 @@ int main(int argc, char *argv[]) {
     try {
         auto tokens = parse(expression);
         double result = compute(tokens);
+        for (auto token : tokens) {
+            if (token->isNumber()) delete token;
+        }
         cout << result << endl;
     } catch (const exception& e) {
         cerr << "Error: " << e.what() << endl;
