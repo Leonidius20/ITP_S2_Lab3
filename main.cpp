@@ -21,11 +21,6 @@ int main(int argc, char *argv[]) {
         auto tokens = parse(expression);
         double result = compute(tokens);
         cout << result << endl;
-
-        for (auto token : tokens) { // we could use smart pointers instead
-            delete token;           // because what if we don't reach this code at all
-                                    // due to an exception?
-        }
     } catch (const exception& e) {
         cerr << "Error: " << e.what() << endl;
     }
