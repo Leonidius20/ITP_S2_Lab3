@@ -6,6 +6,7 @@
 class Token {
 public:
     virtual bool isOperator() = 0;
+    virtual bool isNumber() = 0;
     virtual ~Token() = default;
 };
 
@@ -18,6 +19,8 @@ public:
     [[nodiscard]] double getValue() const { return value; };
 
     bool isOperator() override { return false; };
+
+    bool isNumber() override { return true; };
 
     ~Number() override = default;
 };
@@ -38,6 +41,8 @@ public:
 
     bool isOperator() override { return true; };
 
+    bool isNumber() override { return false; };
+
     [[nodiscard]] int getPrecedence() const { return precedence; }
 
     double apply(double a, double b);
@@ -56,6 +61,8 @@ private:
 public:
 
     bool isOperator() override { return false; };
+
+    bool isNumber() override { return false; };
 
     static OpeningBracket *getInstance() { return instance; };
 };

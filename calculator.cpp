@@ -12,7 +12,6 @@ double compute(const vector<Token *> &tokens) {
         if (!token->isOperator()) {
             auto numberToken = dynamic_cast<Number *>(token);
             numbers.push(numberToken->getValue());
-            delete numberToken;
         } else {
             auto operatorToken = dynamic_cast<Operator *>(token);
             double operand2 = numbers.pop(), operand1 = numbers.pop();
